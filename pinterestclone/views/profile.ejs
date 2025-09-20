@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/profile.css">
+</head>
+<body>
+    <div class="container">
+        <div class="card" >
+            <div class="profile-picture" ><img src="https://i.pinimg.com/1200x/8e/90/1f/8e901f7e4827cac9073ae2c3131d90fa.jpg" alt="profile"></div>
+            <h2 class="name"><%= user.username%></h2>
+            <h3 class="username">@<%= user.username%></h3>
+            <p class="tagline">Lorem ipsum dolor sit amet consectetur adipisicing.</p> 
+            <p class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora, quaerat!</p>
+            <a href="logout" class="button" > Logout</a>
+        </div>
+        <form action="/upload" method="post" enctype="multipart/form-data" >
+            <input type="text" name="filecaption" placeholder="Some Caption" >
+            <input type="file" name="avatar" >
+            <input type="submit" value="upload">
+        </form>
+        
+        <!-- Tab Navigation -->
+        <div class="tab-navigation">
+            <button class="tab-button active" onclick="showTab('created')">Created</button>
+            <button class="tab-button" onclick="showTab('liked')">Liked</button>
+        </div>
+        
+        <!-- Created Posts Section -->
+        <div id="created-tab" class="tab-content active">
+            <div class="cards">
+                <% user.posts.forEach(function(post){ %>
+                    <div class="post">
+                       <img class="post-card" src="/images/uploads/<%= post.image %>" alt="">
+                       <div class="card-body-title" name="Caption"><%= post.imageText %></div>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+        
+        <!-- Liked Posts Section -->
+        <div id="liked-tab" class="tab-content">
+            <div class="cards">
+                <% user.likedPosts.forEach(function(post){ %>
+                    <div class="post">
+                       <img class="post-card" src="/images/uploads/<%= post.image %>" alt="">
+                       <div class="card-body-title" name="Caption"><%= post.imageText %></div>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+    </div>
+    <script>
+        function showTab(tabName) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Remove active class from all tab buttons
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // Show selected tab content
+            document.getElementById(tabName + '-tab').classList.add('active');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
