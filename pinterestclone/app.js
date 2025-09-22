@@ -9,6 +9,10 @@ const LocalStrategy = require('passport-local').Strategy;
 const flash = require("connect-flash");
 // const User = require('./users');
 
+require("dotenv").config();
+const connectDB = require("./db");
+connectDB();
+
 var indexRouter = require('./routes/index');
 var userModel = require('./routes/users');
 

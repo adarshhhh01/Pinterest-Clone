@@ -3,7 +3,7 @@ const plm = require('passport-local-mongoose');
 // It's good practice to connect to MongoDB here once
 // so you don't have to do it in every model file.
 // Make sure to replace 'pinterest-clone' with your actual database name.
-mongoose.connect('mongodb://127.0.0.1:27017/pinterestclone');
+
 
 const userSchema = new mongoose.Schema({
   username: {

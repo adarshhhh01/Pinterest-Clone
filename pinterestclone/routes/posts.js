@@ -10,23 +10,18 @@ const postSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref:'User' // every post must have an image
     },
-   
-    createdAt: [
-      {
-        type: Date,
-        default:Date.now,
-      },
-    ],
     image: {
       type: String,
     },
-    
     likes: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User", // who liked the post
       },
     ],
+  },
+  {
+    timestamps: true // Automatically adds createdAt and updatedAt fields
   }
 );
 
