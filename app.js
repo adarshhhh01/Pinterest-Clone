@@ -10,7 +10,7 @@ const flash = require("connect-flash");
 // const User = require('./users');
 
 require("dotenv").config();
-const connectDB = require("./pinterestclone/db");
+const connectDB = require("./db");
 connectDB();
 
 var indexRouter = require('./routes/index');

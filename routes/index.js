@@ -30,20 +30,21 @@ router.get('/feed', function(req, res, next) {
 
 router.post('/upload',isLoggedIn, upload.single("avatar"),async function(req, res, next) {
   if(!req.file){
-    res.send(404).send('No files were given')} 
-    // yaha tk main post upload ho gai but yaha per abhi ye define nhi hia ki yeh post kiski hai kisne usko upload kiya....
-    // toh hum bole toh ye jo post hai uski UId user ko do or user UId post me save krwado jisme hum isko easily located kr skte hai.
-    
-    const user = await userModel.findOne({username: req.session.passport.user});
-    const post = await postModel.create({
-      image : req.file.filename,
-      imageText: req.body.filecaption,
-      user: user._id
-    });
+    return res.status(400).send('No file was provided');
+  }
+  // yaha tk main post upload ho gai but yaha per abhi ye define nhi hia ki yeh post kiski hai kisne usko upload kiya....
+  // toh hum bole toh ye jo post hai uski UId user ko do or user UId post me save krwado jisme hum isko easily located kr skte hai.
+  
+  const user = await userModel.findOne({username: req.session.passport.user});
+  const post = await postModel.create({
+    image : req.file.filename,
+    imageText: req.body.filecaption,
+    user: user._id
+  });
 
-    user.posts.push(post._id);
-    await user.save();
-    res.redirect("profile");
+  user.posts.push(post._id);
+  await user.save();
+  res.redirect("profile");
 });
 
 router.get('/profile', isLoggedIn,async function(req, res, next) {
